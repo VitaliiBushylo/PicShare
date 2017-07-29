@@ -1,0 +1,14 @@
+﻿body {
+    padding: 0px;
+}
+
+.hands {
+    height: 200px;
+    background-image: url(hands01.jpg);
+    background-size: 400px;
+    background-repeat: repeat-x;
+}
+
+    .hands.topHands {
+        transform: rotate(180deg);
+    }

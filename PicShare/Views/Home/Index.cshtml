@@ -1,0 +1,15 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Picshare";
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/Scripts/ViewModels/welcomeViewModel.js"></script>
+    <script type="text/javascript" src="~/Scripts/ViewModels/mainViewModel.js"></script>
+}
+
+@section Body{
+    <div data-bind="component: {name: currentComponent, params: {switchComponentTo: switchComponentTo}}" />
+
+}
