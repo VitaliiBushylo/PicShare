@@ -14,9 +14,7 @@
                 return new welcomeViewModel(params);
             }
         },
-        template: '<div class="row">' +
-        '<div class="hands topHands" />' +
-        '</div>' +
+        template: 
         '<div class="row">' +
         '<h3 class="col-md-8 col-md-offset-2 h3" data-bind="text: unregisteredUserText"></h3>' +
         '<a class="col-md-2 btn btn-info" data-bind="click: register">R E G I S T E R</a>' +
@@ -28,14 +26,28 @@
         '</div>'
     });
 
-    //var mainViewModel = {
-    //    currentComponent: ko.observable('welcome'),
-    //    switchComponentTo: function (componentName) {
-    //        currentComponent(componentName);
-    //    }
-    //};
+    ko.components.register('register', {
+        viewModel: {
+            createViewModel: function (params, componentInfo) {
+                return new registerViewModel(params);
+            }
+        },
+        template: '<div class="row">'+
+        '<form class="col-md-4" data-bind="submit: register">' +
+        '<div class="form-group" >' +
+        '<label for="name">Name</label>' +
+        '<input type="text" class="form-control" id="name" placeholder="name" data-bind="textInput: name" required/>' +
+        '</div>' +
+        '<div class="form-group">' +
+        '<label for="pass">Password</label>' +
+        '<input type="password" class="form-control" id="pass" placeholder="password" data-bind="textInput: password" required/>' +
+        '</div>' +
+        '<input type="submit" class="btn btn-default" value="Send"/>' +
+        '</form>' +
+        '</div>'
+    });
 
-    ko.applyBindings(new mainViewModel({ defaultComponent: 'welcome'}));
+    ko.applyBindings(new mainViewModel({ defaultComponent: 'welcome' }));
 });
 
 //requirejs.config({

@@ -12,3 +12,7 @@
     .hands.topHands {
         transform: rotate(180deg);
     }
+
+.error{
+    color: red;
+}

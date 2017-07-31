@@ -8,8 +8,7 @@
     self.register = function () {
         self.ajaxHelper.sendAjaxRequest('GET', function (userModel) {
             self.switchComponentTo('register');
-        },
-        'account');
+        }, null, 'account');
     };
 
     self.login = function () {

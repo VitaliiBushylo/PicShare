@@ -7,9 +7,9 @@
 @section Scripts{
     <script type="text/javascript" src="~/Scripts/ViewModels/welcomeViewModel.js"></script>
     <script type="text/javascript" src="~/Scripts/ViewModels/mainViewModel.js"></script>
+    <script type="text/javascript" src="~/Scripts/ViewModels/registerViewModel.js"></script>
 }
 
-@section Body{
-    <div data-bind="component: {name: currentComponent, params: {switchComponentTo: switchComponentTo}}" />
 
-}
+<div class="container" data-bind="component: {name: currentComponent, params: {switchComponentTo: switchComponentTo}}" />
+

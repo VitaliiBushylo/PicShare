@@ -156,11 +156,17 @@
     <Content Include="Scripts\Helpers\ajaxHelper.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\startup.js" />
     <Content Include="Scripts\ViewModels\mainViewModel.js" />
+    <Content Include="Scripts\ViewModels\registerViewModel.js" />
     <Content Include="Scripts\ViewModels\welcomeViewModel.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -170,6 +176,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserApiController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,6 +186,7 @@
     <Compile Include="Infrastructure\PicshareUserManager.cs" />
     <Compile Include="Models\PicshareRole.cs" />
     <Compile Include="Models\PicshareUser.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +197,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Templates\WelcomeTemplate.cshtml" />
     <Content Include="Views\Templates\RegisterTemplate.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

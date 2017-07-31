@@ -11,11 +11,6 @@ namespace PicShare.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
+        }        
     }
 }

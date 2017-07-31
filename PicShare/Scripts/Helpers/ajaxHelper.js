@@ -1,9 +1,10 @@
 ﻿function ajaxHelper() {
-    this.sendAjaxRequest = function (httpMethod, callback, controller, param) {
+    this.sendAjaxRequest = function (httpMethod, callback, data, controller, param) {
         $.ajax("/api/" + controller + (param ? "/" + param : ""),
             {
                 type: httpMethod,
-                success: callback
+                success: callback,
+                data: data
             });
     };
 }
