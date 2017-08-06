@@ -2,9 +2,13 @@
     this.sendAjaxRequest = function (httpMethod, callback, data, controller, param) {
         $.ajax("/api/" + controller + (param ? "/" + param : ""),
             {
-                type: httpMethod,
+                type: httpMethod,                
                 success: callback,
-                data: data
+                data: data,
+                error: function (e) {
+                    var message = 'Error: ' + e.statusText + '. Reason: ' + e.responseText;
+                    alert(message);
+                }
             });
     };
 }

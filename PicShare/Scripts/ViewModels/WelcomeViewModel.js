@@ -1,18 +1,44 @@
 ﻿function welcomeViewModel(params) {
     var self = this;
     self.switchComponentTo = params.switchComponentTo || null;
-    self.registeredUserText = "If you already registered click ";
-    self.unregisteredUserText = "To be abel to share your pictures click ";
+    self.name = ko.observable('').extend({ required: '' });
+    self.password = ko.observable('').extend({ required: '' });
+    self.welcomeText = ko.observable('Please REGISTER or LOGIN');
     self.ajaxHelper = new ajaxHelper();
+    self.isRgistering = ko.observable(false);
+    self.isLoginin = ko.observable(false);
+    self.registrationCompleted = ko.observable(false);
 
-    self.register = function () {
-        self.ajaxHelper.sendAjaxRequest('GET', function (userModel) {
-            self.switchComponentTo('register');
-        }, null, 'account');
+    self.register = function (element) {
+        if (self.name.hasError() || self.password.hasError()) return;
+        self.isRgistering(true);
+        var data = { name: self.name(), password: self.password() };
+        self.ajaxHelper.sendAjaxRequest('POST', function (userName) {
+            self.isRgistering(false);
+            self.welcomeText(userName + ', you successfully registered. Now please login.');
+            self.registrationCompleted(true);
+        }, data, 'account');
+
     };
 
-    self.login = function () {
-
+    self.login = function (element) {
+        if (self.name.hasError() || self.password.hasError()) return;
+        self.isLoginin(true);
+        var data = { name: self.name(), password: self.password() };
+        self.ajaxHelper.sendAjaxRequest('PUT', function (response) {
+            self.isLoginin(false);
+            var redirectUri = window.location.origin + response;
+            //redirect to a user page
+            window.location.replace(redirectUri);
+        }, data, 'account');
     };
+
+    //self.register = function () {
+    //    self.switchComponentTo('register');        
+    //};
+
+    //self.login = function () {
+    //    self.switchComponentTo('login');       
+    //};
 };
 

@@ -1,11 +1,51 @@
-﻿<template id="welcome-template">    
+﻿<template id="welcome-template">
     <div class="row">
-        <h3 class="col-md-8 col-md-offset-2 h3" data-bind="text: unregisteredUserText"></h3>
-        <a class="col-md-2 btn btn-info" data-bind="click: register">R E G I S T E R</a>
+        <h3 class="col-md-12 text-center h3" data-bind="text: welcomeText"></h3>
     </div>
-    <br />
     <div class="row">
-        <h3 class="col-md-8 col-md-offset-2 h3" data-bind="text: registeredUserText"></h3>
-        <a class="col-md-2 btn btn-info" data-bind="click: login">L O G I N</a>
+        <div class="col-md-4" />
+        <form class="col-md-4">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <p data-bind="css: {error: name.hasError}">
+                    <input type="text" class="form-control" id="name" placeholder="name" data-bind="textInput: name, enable: !isRgistering() && !isLoginin()" required />
+                    <span data-bind="visible: name.hasError, text: name.validationMessage" />
+                </p>
+            </div>
+            <div class="form-group">
+                <label for="pass">Password</label>
+                <p data-bind="css: {error: password.hasError}">
+                    <input type="password" class="form-control" id="pass" placeholder="password" data-bind="textInput: password, enable: !isRgistering() && !isLoginin()" required />
+                    <span data-bind="visible: password.hasError, text: password.validationMessage" />
+                </p>
+            </div>
+        </form>
+        <div class="col-md-4" />
+    </div>
+    <div class="row">
+        <div class="col-md-3" />
+       
+        <button class="col-md-2 btn btn-info" data-bind="visible: !registrationCompleted(), click: register, enable: !isRgistering() && !isLoginin() && !name.hasError() && !password.hasError()">
+            <i data-bind="visible: isRgistering" class="fa fa-spinner fa-spin"></i>
+            <!-- ko if: isRgistering -->
+            Registering ...
+            <!-- /ko -->
+            <!-- ko ifnot: isRgistering -->
+            R E G I S T E R
+            <!-- /ko -->
+        </button>
+
+        <div class="col-md-2" />
+        <button class="col-md-2 btn btn-info" data-bind="click: login, enable: !isLoginin() && !isRgistering() && !name.hasError() && !password.hasError()">
+            <i data-bind="visible: isLoginin" class="fa fa-spinner fa-spin"></i>
+            <!-- ko if: isLoginin -->
+            Login in ...
+            <!-- /ko -->
+            <!-- ko ifnot: isLoginin -->
+            L O G I N
+            <!-- /ko -->
+        </button>
+
+        <div class="col-md-3" />
     </div>
 </template>

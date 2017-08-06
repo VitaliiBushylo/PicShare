@@ -18,27 +18,7 @@ namespace PicShare.Controllers
     public class AccountController : ApiController
     {
         [AllowAnonymous]
-        [HttpGet]
-        public IHttpActionResult Login()
-        {
-            try
-            {
-                if (HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    //return View("Error", new string[] { "Access Denied" });
-                    return Redirect(Url.Route("Default", new { controller = "User", id = HttpContext.Current.User.Identity.GetUserId() }));
-                }
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-
-            return Ok();
-        }
-
-        [AllowAnonymous]
-        [HttpPatch]
+        [HttpPut]
         public async Task<IHttpActionResult> Login(LoginModel userDetails)
         {
             try
@@ -48,18 +28,22 @@ namespace PicShare.Controllers
                     var user = await UserManager.FindAsync(userDetails.Name, userDetails.Password);
                     if (user == null)
                     {
-                        ModelState.AddModelError("", "Invalid name or password.");
+                        var message = "Invalid name or password.";
+                        ModelState.AddModelError("", message);
+                        return InternalServerError(new ApplicationException(message));
                     }
                     else
                     {
                         var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
                         AuthManager.SignOut();
-                        AuthManager.SignIn(new AuthenticationProperties { IsPersistent = true }, identity);
+                        AuthManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = true,
+                            ExpiresUtc = DateTimeOffset.UtcNow.AddHours(4)
+                        }, identity);
 
-                        return Redirect(Url.Route("Default", new { controller = "User", id = user.Id }));
+                        return Json($"/user/details/{user.Id}");
                     }
-
-                    return Ok();
                 }
 
                 return StatusCode(System.Net.HttpStatusCode.Forbidden);
@@ -89,12 +73,13 @@ namespace PicShare.Controllers
 
                     if (result == IdentityResult.Success)
                     {
-                        return Json($"user/details/{user.Id}");
-                        //return Redirect(Url.Route("Default", new { controller = "User", id = user.Id })); //RedirectToRoute("api/user", user.Id);
+                        return Ok(user.UserName);
                     }
                     else
                     {
-                        ModelState.AddModelError("", result.Errors.Aggregate((prev, curr) => prev + "/n" + curr));
+                        var message = result.Errors.Aggregate((prev, curr) => prev + "/n" + curr);
+                        ModelState.AddModelError("", message);
+                        return InternalServerError(new ApplicationException(message));
                     }
                 }
 

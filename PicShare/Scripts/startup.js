@@ -1,4 +1,25 @@
 ﻿$(document).ready(() => {
+    ko.extenders.required = function (target, overrideMessage) {
+        //add some sub-observables to our observable
+        target.hasError = ko.observable();
+        target.validationMessage = ko.observable();
+
+        //define a function to do validation
+        function validate(newValue) {
+            target.hasError(newValue ? false : true);
+            target.validationMessage(newValue ? "" : overrideMessage || "This field is required");
+        }
+
+        //initial validation
+        validate(target());
+
+        //validate whenever the value changes
+        target.subscribe(validate);
+
+        //return the original observable
+        return target;
+    };
+
     ko.components.register('welcome', {
         viewModel: {
             createViewModel: function (params, componentInfo) {
@@ -14,92 +35,54 @@
                 return new welcomeViewModel(params);
             }
         },
-        template: 
+        template:
         '<div class="row">' +
-        '<h3 class="col-md-8 col-md-offset-2 h3" data-bind="text: unregisteredUserText"></h3>' +
-        '<a class="col-md-2 btn btn-info" data-bind="click: register">R E G I S T E R</a>' +
+        '<h3 class="col-md-12 text-center h3" data-bind="text: welcomeText"></h3>' +
         '</div>' +
-        '<br/>' +
-        '<div class="row">' +
-        '<h3 class="col-md-8 col-md-offset-2 h3" data-bind="text: registeredUserText"></h3>' +
-        '<a class="col-md-2 btn btn-info" data-bind="click: login">L O G I N</a>' +
-        '</div>'
-    });
-
-    ko.components.register('register', {
-        viewModel: {
-            createViewModel: function (params, componentInfo) {
-                return new registerViewModel(params);
-            }
-        },
-        template: '<div class="row">'+
-        '<form class="col-md-4" data-bind="submit: register">' +
-        '<div class="form-group" >' +
-        '<label for="name">Name</label>' +
-        '<input type="text" class="form-control" id="name" placeholder="name" data-bind="textInput: name" required/>' +
-        '</div>' +
-        '<div class="form-group">' +
-        '<label for="pass">Password</label>' +
-        '<input type="password" class="form-control" id="pass" placeholder="password" data-bind="textInput: password" required/>' +
-        '</div>' +
-        '<input type="submit" class="btn btn-default" value="Send"/>' +
-        '</form>' +
+        '<div class="row">'+
+        '<div class="col-md-4" />'+
+        '<form class="col-md-4">'+
+            '<div class="form-group">'+
+                '<label for="name">Name</label>'+
+                '<p data-bind="css: {error: name.hasError}">'+
+                    '<input type="text" class="form-control" id="name" placeholder="name" data-bind="textInput: name, enable: !isRgistering() && !isLoginin()" required />'+
+                    '<span data-bind="visible: name.hasError, text: name.validationMessage" />'+
+                '</p>'+
+            '</div>'+
+            '<div class="form-group">'+
+                '<label for="pass">Password</label>'+
+                '<p data-bind="css: {error: password.hasError}">'+
+                    '<input type="password" class="form-control" id="pass" placeholder="password" data-bind="textInput: password, enable: !isRgistering() && !isLoginin()" required />'+
+                    '<span data-bind="visible: password.hasError, text: password.validationMessage" />'+
+                '</p>'+
+            '</div>'+
+        '</form>'+
+        '<div class="col-md-4" />'+
+    '</div>'+      
+        '<div class="row">'+
+            '<div class="col-md-3" />'+
+        '<button class="col-md-2 btn btn-info" data-bind="visible: !registrationCompleted(), click: register, enable: !isRgistering()  && !isLoginin() && !name.hasError() && !password.hasError()">' +
+        '<i data-bind="visible: isRgistering" class="fa fa-spinner fa-spin"></i>'+
+        '<!-- ko if: isRgistering -->'+
+            ' Registering ...'+
+            '<!-- /ko -->'+
+        '<!-- ko ifnot: isRgistering -->'+
+        'R E G I S T E R'+
+            '<!-- /ko -->' +
+        '</button>' +
+            '<div class="col-md-2" />'+
+        '<button class="col-md-2 btn btn-info" data-bind="click: login, enable: !isLoginin() && !isRgistering() && !name.hasError() && !password.hasError()">'+
+        '<i data-bind="visible: isLoginin" class="fa fa-spinner fa-spin" ></i>'+
+            '<!-- ko if: isLoginin -->'+
+        ' Login in ...'+
+            '<!-- /ko -->'+
+        '<!-- ko ifnot: isLoginin -->'+
+        'L O G I N'+
+        '<!-- /ko -->'+
+        '</button>'+
+            '<div class="col-md-3" />'+
         '</div>'
     });
 
     ko.applyBindings(new mainViewModel({ defaultComponent: 'welcome' }));
 });
-
-//requirejs.config({
-//    //By default load any module IDs from js/lib
-//    baseUrl: 'Scripts',
-//    //except, if the module ID starts with "app",
-//    //load it from the js/app directory. paths
-//    //config is relative to the baseUrl, and
-//    //never includes a ".js" extension since
-//    //the paths config could be for a directory.
-//    paths: {
-//        vm: 'ViewModels'
-//    }
-//});
-
-//requirejs(['vm/mainViewModel',
-//    'vm/welcomeViewModel'],
-//    function (mainViewModel, welcomeViewModel) {
-//        ko.components.register('welcome', {
-//            viewModel: {
-//                createViewModel: function (params, componentInfo) {
-//                    // - 'params' is an object whose key/value pairs are the parameters
-//                    //   passed from the component binding or custom element
-//                    // - 'componentInfo.element' is the element the component is being
-//                    //   injected into. When createViewModel is called, the template has
-//                    //   already been injected into this element, but isn't yet bound.
-//                    // - 'componentInfo.templateNodes' is an array containing any DOM
-//                    //   nodes that have been supplied to the component. See below.
-
-//                    // Return the desired view model instance, e.g.:
-//                    return new welcomeViewModel(params);
-//                }
-//            },
-//            template: '<div class="row">' +
-//            '<div class="hands topHands" />' +
-//            '</div>' +
-//            '<div class="row">' +
-//            '<h3 class="col-md-8 col-md-offset-2 h3" data-bind="text: unregisteredUserText"></h3>' +
-//            '<a class="col-md-2 btn btn-info" data-bind="click: register">R E G I S T E R</a>' +
-//            '</div>' +
-//            '<br/>' +
-//            '<div class="row">' +
-//            '<h3 class="col-md-8 col-md-offset-2 h3" data-bind="text: registeredUserText"></h3>' +
-//            '<a class="col-md-2 btn btn-info" data-bind="click: login">L O G I N</a>' +
-//            '</div>'
-//        });
-
-//        //mainViewModel.currentComponent('welcome');
-
-//        var mainViewModel = {
-//            currentComponent: ko.observable('welcome')
-//        };
-
-//        ko.applyBindings(mainViewModel);
-//    });

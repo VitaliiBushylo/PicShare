@@ -7,15 +7,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PicShare.Models;
+using System.Threading.Tasks;
 
 namespace PicShare.Controllers
 {
     [Authorize]
     public class UserController : Controller
     {
-        public ActionResult Index(Guid id)
+        public async Task<ActionResult> Details(Guid id)
         {
-            return View();
+            try
+            {
+                var user = await UserManager.FindByIdAsync(id.ToString());
+                if (user == null) return HttpNotFound("Could not find a user.");
+
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", ex);
+            }
         }
 
         private IAuthenticationManager AuthManager
