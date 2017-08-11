@@ -8,8 +8,7 @@ using System.Web.Http;
 namespace PicShare.Controllers
 {
     [Authorize]
-    [RoutePrefix("userapi")]
-    [Route(Name = "userapi")]
+    [RoutePrefix("user")]
     public class UserApiController : ApiController
     {
         // GET api/<controller>/5
