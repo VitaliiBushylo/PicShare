@@ -17,7 +17,8 @@
             self.isRgistering(false);
             self.welcomeText(userName + ', you successfully registered. Now please login.');
             self.registrationCompleted(true);
-        }, data, 'account');
+        },
+        self.handleError, data, 'account');
 
     };
 
@@ -30,15 +31,13 @@
             var redirectUri = window.location.origin + response;
             //redirect to a user page
             window.location.replace(redirectUri);
-        }, data, 'account');
+        },
+        self.handleError,data, 'account');
     };
 
-    //self.register = function () {
-    //    self.switchComponentTo('register');        
-    //};
-
-    //self.login = function () {
-    //    self.switchComponentTo('login');       
-    //};
+    self.handleError = function(error) {
+        self.isRgistering(false);
+        self.isRgistering.valueHasMutated();
+    };
 };
 

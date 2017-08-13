@@ -1,11 +1,12 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Picshare";
+    ViewBag.Title = "Welcome to Picshare";
 }
 
 @section Scripts{
-    <script type="text/javascript" src="~/Scripts/ViewModels/welcomeViewModel.js"></script>    
+    <script type="text/javascript" src="~/Scripts/ViewModels/welcomeViewModel.js"></script>
+    <script type="text/javascript" src="~/Scripts/welcomeStartup.js"></script>
 }
 
 <div class="container" data-bind="component: {name: currentComponent, params: {switchComponentTo: switchComponentTo}}" />

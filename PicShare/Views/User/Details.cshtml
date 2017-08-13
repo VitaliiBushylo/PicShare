@@ -1,10 +1,15 @@
 ﻿@model PicShare.Models.PicshareUser
 @{
-    ViewBag.Title = Model.UserName;
+    ViewBag.Title = $"{Model.UserName} details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Scripts{}
+@section Scripts{
+    <script type="text/javascript" src="~/Scripts/ViewModels/boardViewModel.js"></script>
+    <script type="text/javascript" src="~/Scripts/userStartup.js"></script>
+}
 
-<h2>Hello @Model.UserName</h2>
+<div class="container"
+     data-bind="component: {name: currentComponent, params: {switchComponentTo: switchComponentTo}}"
+     id="@(Model.Id)" />
 
