@@ -138,6 +138,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\data_sharing.png" />
     <Content Include="Content\hands01.jpg" />
     <Content Include="Content\PicshareStyle.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
