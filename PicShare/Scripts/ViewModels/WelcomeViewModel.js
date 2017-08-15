@@ -31,7 +31,7 @@
     self.login = function (element) {
         if (self.name.hasError() || self.password.hasError()) return;
         self.isLoginin(true);
-        var data = { name: self.name(), password: self.password() };
+        var data = { name: self.name(), password: $.md5(self.password()) };
         self.ajaxHelper.sendAjaxRequest('PUT', function (response) {
             self.isLoginin(false);
             if (response.HasError) {
