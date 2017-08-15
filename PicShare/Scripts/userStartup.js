@@ -15,7 +15,7 @@
                 return new boardViewModel(params);
             }
         },
-        template: ''
+        template: '<h4 class="text-center" data-bind="text: userId"/>'
     });
 
     ko.applyBindings(new mainViewModel({ defaultComponent: 'board' }));

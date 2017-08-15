@@ -13,9 +13,15 @@
         if (self.name.hasError() || self.password.hasError()) return;
         self.isRgistering(true);
         var data = { name: self.name(), password: self.password() };
-        self.ajaxHelper.sendAjaxRequest('POST', function (userName) {
+        self.ajaxHelper.sendAjaxRequest('POST', function (response) {
             self.isRgistering(false);
-            self.welcomeText(userName + ', you successfully registered. Now please login.');
+            if (response.HasError) {
+                alert(response.ErrorMessage);
+                return;
+            }
+
+            self.password('');
+            self.welcomeText(response.JsonContent + ', you successfully registered. Now please login.');
             self.registrationCompleted(true);
         },
         self.handleError, data, 'account');
@@ -28,7 +34,12 @@
         var data = { name: self.name(), password: self.password() };
         self.ajaxHelper.sendAjaxRequest('PUT', function (response) {
             self.isLoginin(false);
-            var redirectUri = window.location.origin + response;
+            if (response.HasError) {
+                alert(response.ErrorMessage);
+                return;
+            }
+
+            var redirectUri = window.location.origin + response.JsonContent;
             //redirect to a user page
             window.location.replace(redirectUri);
         },
@@ -36,8 +47,7 @@
     };
 
     self.handleError = function(error) {
-        self.isRgistering(false);
-        self.isRgistering.valueHasMutated();
+        alert(error);
     };
 };
 
