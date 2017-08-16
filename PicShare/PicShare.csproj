@@ -183,7 +183,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserApiController.cs" />
-    <Compile Include="Controllers\BoardApiController.cs" />
+    <Compile Include="Controllers\BoardController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -191,9 +191,15 @@
     <Compile Include="Infrastructure\PicshareIdentityDbContext.cs" />
     <Compile Include="Infrastructure\PicshareRoleManager.cs" />
     <Compile Include="Infrastructure\PicshareUserManager.cs" />
+    <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\PictureComment.cs" />
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Infrastructure\PicshareDbContext.cs" />
     <Compile Include="Models\PicshareRole.cs" />
     <Compile Include="Models\PicshareUser.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\Picture.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +213,7 @@
     <Content Include="Views\Templates\WelcomeTemplate.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Templates\BoardTmplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -215,6 +222,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="api\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\Account\" />
   </ItemGroup>

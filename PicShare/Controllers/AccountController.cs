@@ -42,7 +42,8 @@ namespace PicShare.Controllers
                             ExpiresUtc = DateTimeOffset.UtcNow.AddHours(4)
                         }, identity);
 
-                        return Json($"/user/details/{user.Id}");
+                        return Json<ResponseModel>(new ResponseModel { JsonContent = $"/user/details/{user.Id}", HasError = false });
+                        
                     }
                 }
 
@@ -50,7 +51,8 @@ namespace PicShare.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return Json<ResponseModel>(new ResponseModel { HasError = true, ErrorMessage = ex.Message});
+               
             }
         }
 
@@ -73,13 +75,14 @@ namespace PicShare.Controllers
 
                     if (result == IdentityResult.Success)
                     {
-                        return Ok(user.UserName);
+                        return Json(new ResponseModel { HasError = false, JsonContent = user.UserName });
+                        
                     }
                     else
                     {
                         var message = result.Errors.Aggregate((prev, curr) => prev + "/n" + curr);
                         ModelState.AddModelError("", message);
-                        return InternalServerError(new ApplicationException(message));
+                        return Json(new ResponseModel { HasError = true, ErrorMessage = message });                        
                     }
                 }
 
@@ -87,7 +90,7 @@ namespace PicShare.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                return Json<ResponseModel>(new ResponseModel { HasError = true, ErrorMessage = ex.Message });                
             }
         }
 
