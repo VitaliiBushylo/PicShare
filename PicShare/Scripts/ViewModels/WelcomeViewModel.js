@@ -12,7 +12,7 @@
     self.register = function (element) {
         if (self.name.hasError() || self.password.hasError()) return;
         self.isRgistering(true);
-        var data = { name: self.name(), password: self.password() };
+        var data = { name: self.name(), password: $.md5(self.password()) };
         self.ajaxHelper.sendAjaxRequest('POST', function (response) {
             self.isRgistering(false);
             if (response.HasError) {
@@ -33,9 +33,9 @@
         self.isLoginin(true);
         var data = { name: self.name(), password: $.md5(self.password()) };
         self.ajaxHelper.sendAjaxRequest('PUT', function (response) {
-            self.isLoginin(false);
             if (response.HasError) {
                 alert(response.ErrorMessage);
+                self.isLoginin(false);
                 return;
             }
 
@@ -46,8 +46,10 @@
         self.handleError,data, 'account');
     };
 
-    self.handleError = function(error) {
-        alert(error);
+    self.handleError = function (error) {
+        alert(error.responseText);
+        self.isLoginin(false);
+        self.isRgistering(false);
     };
 };
 

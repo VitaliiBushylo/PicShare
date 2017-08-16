@@ -9,7 +9,7 @@
     };
 
     self.handleError = function (error) {
-        alert(error);
+        alert(error.responseText);
     };
 
     self.retrieveUserBoard = function () {

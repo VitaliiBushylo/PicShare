@@ -10,7 +10,7 @@ namespace PicShare.Infrastructure
 {
     public class PicshareIdentityDbContext : IdentityDbContext<PicshareUser>
     {
-        public PicshareIdentityDbContext() : base("PickshareIdentityDb") { }
+        public PicshareIdentityDbContext() : base("PicshareIdentityDb") { }
 
         static PicshareIdentityDbContext()
         {
