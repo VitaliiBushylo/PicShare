@@ -1,4 +1,9 @@
-﻿<template id="welcome-template">
+﻿@{
+    Layout = null;
+}
+
+@*<template id="welcome-template">*@
+<script type="text/template">
     <div class="row">
         <h3 class="col-md-12 text-center h3" data-bind="text: welcomeText"></h3>
     </div>
@@ -24,7 +29,7 @@
     </div>
     <div class="row">
         <div class="col-md-3" />
-       
+
         <button class="col-md-2 btn btn-info" data-bind="visible: !registrationCompleted(), click: register, enable: !isRgistering() && !isLoginin() && !name.hasError() && !password.hasError()">
             <i data-bind="visible: isRgistering" class="fa fa-spinner fa-spin"></i>
             <!-- ko if: isRgistering -->
@@ -48,4 +53,5 @@
 
         <div class="col-md-3" />
     </div>
-</template>
+</script>
+@*</template>*@

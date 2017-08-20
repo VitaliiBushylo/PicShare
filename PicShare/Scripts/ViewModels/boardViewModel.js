@@ -1,20 +1,22 @@
-﻿function boardViewModel(params) {
-    var self = this;
-    self.switchComponentTo = params.switchComponentTo || null;
-    self.ajaxHelper = new ajaxHelper();
-    self.userId = params.userId;
-    
-    self.updateBoardState = function(boardData) {
-        
-    };
+﻿define(['knockout', 'helpers/ajaxHelper'], function (ko, ajaxHelper) {
+    function boardViewModel(params) {
+        var self = this;
+        self.switchComponentTo = params.switchComponentTo || null;
+        self.ajaxHelper = new ajaxHelper();
+        self.userId = params.userId;
 
-    self.handleError = function (error) {
-        alert(error.responseText);
-    };
+        self.updateBoardState = function (boardData) {
 
-    self.retrieveUserBoard = function () {
-        self.ajaxHelper.sendAjaxRequest('GET', self.updateBoardState, self.handleError,  null, 'board', self.userId);
-    }();
+        };
 
-   
-}
+        self.handleError = function (error) {
+            alert(error.responseText);
+        };
+
+        self.retrieveUserBoard = function () {
+            self.ajaxHelper.sendAjaxRequest('GET', self.updateBoardState, self.handleError, null, 'board', self.userId);
+        }();
+
+
+    }
+});
