@@ -17,14 +17,14 @@ namespace PicShare.Controllers
     [RoutePrefix("board")]
     public class BoardController : ApiController
     {
-        public async Task<HttpResponseMessage> Get(Guid id)
+        public async Task<HttpResponseMessage> Get(string id)
         {
             try
             {
-                var user = await UserManager.FindByIdAsync(id.ToString());
+                var user = await UserManager.FindByNameAsync(id);
                 if (user == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Could not find a user.");
 
-                var userBoard = Repository.GetUserBoard(id);
+                var userBoard = Repository.GetUserBoard(Guid.Parse(user.Id));
 
                 return Request.CreateResponse(userBoard);
             }

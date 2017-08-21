@@ -169,6 +169,7 @@
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\Models\pictureModel.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />
@@ -219,7 +220,7 @@
     <Content Include="Views\Templates\WelcomeTemplate.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Templates\BoardTmplate.cshtml" />
+    <Content Include="Views\Templates\BoardTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

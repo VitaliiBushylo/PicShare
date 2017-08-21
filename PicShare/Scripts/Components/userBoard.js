@@ -1,7 +1,8 @@
-﻿define(['knockout', 'vm/boardViewModel', 'text!templates/BoardTmplate'],
+﻿define(['knockout', 'vm/boardViewModel', 'text!templates/BoardTemplate'],
     function (ko, boardViewModel, BoardTmplate) {
         function createViewModel(params) {
-            var vm = new boardViewModel(params);
+            var vm = new boardViewModel(params);            
+            vm.retrieveUserBoard();
             return vm;
         }
 

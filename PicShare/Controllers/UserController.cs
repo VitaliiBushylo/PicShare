@@ -20,8 +20,12 @@ namespace PicShare.Controllers
             try
             {
                 var user = await UserManager.FindByNameAsync(id);
-                if (user == null) return HttpNotFound("Could not find a user.");
-
+                if (user == null)
+                {
+                    AuthManager.SignOut();
+                    return RedirectToAction("Index", "Home");
+                }
+                
                 return View(user);
             }
             catch (Exception ex)

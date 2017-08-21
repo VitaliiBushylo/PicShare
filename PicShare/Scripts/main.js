@@ -3,6 +3,7 @@
         vm: 'ViewModels',
         helpers: 'Helpers',
         components: 'Components',
+        models: 'Models',
 
         jquery: 'jquery-1.9.1.min',
         bootstrap: 'bootstrap.min',
@@ -44,6 +45,7 @@ require(['knockout', 'bootstrap'], function (ko) {
     };
 
     ko.components.register('welcome', { require: 'components/welcome' });
+    ko.components.register('user-board', { require: 'components/userBoard' });
 
     ko.applyBindings();
 });
