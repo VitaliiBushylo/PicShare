@@ -169,6 +169,7 @@
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\userStartup.js" />
     <Content Include="Scripts\welcomeStartup.js" />
     <Content Include="Scripts\ViewModels\mainViewModel.js" />
