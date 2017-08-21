@@ -2,6 +2,7 @@
     paths: {
         vm: 'ViewModels',
         helpers: 'Helpers',
+        components: 'Components',
 
         jquery: 'jquery-1.9.1.min',
         bootstrap: 'bootstrap.min',
@@ -10,14 +11,16 @@
 
         welcome_startup: 'welcomeStartup',
         user_startup: 'userStartup',
-        
-        templates: '../views/templates'
-    }
 
+        templates: '../Templates'
+    },
+    shim: {
+        'bootstrap': { deps: ['jquery'] }
+    }
 });
 
 
-require(['knockout', 'welcome_startup', 'text!../views/templates/WelcomeTemplate.cshtml'], function (ko, welcomeStartup, WelcomeTemplate) {
+require(['knockout', 'bootstrap'], function (ko) {
     //do components registeration
     ko.extenders.required = function (target, overrideMessage) {
         //add some sub-observables to our observable
@@ -40,11 +43,7 @@ require(['knockout', 'welcome_startup', 'text!../views/templates/WelcomeTemplate
         return target;
     };
 
-    ko.components.register('welcome', {
-        viewModel: { require: 'vm/welcomeViewModel' },
-        template: { require: 'text!templates/WelcomeTemplate.cshtml' }
-    });
+    ko.components.register('welcome', { require: 'components/welcome' });
 
-    //var welcomeStartup = new welcomeStartup();
-    //welcomeStartup.init();
+    ko.applyBindings();
 });

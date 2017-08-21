@@ -42,7 +42,7 @@ namespace PicShare.Controllers
                             ExpiresUtc = DateTimeOffset.UtcNow.AddHours(4)
                         }, identity);
 
-                        return Json<ResponseModel>(new ResponseModel { JsonContent = $"/user/details/{user.Id}", HasError = false });
+                        return Json<ResponseModel>(new ResponseModel { JsonContent = $"/user/details/{user.UserName}", HasError = false });
                         
                     }
                 }

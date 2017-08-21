@@ -1,8 +1,8 @@
-﻿define(['knockout', 'helpers/ajaxHelper'], function (ko, ajaxHelper) {
+﻿define(['knockout', 'helpers/ajaxHelper', 'jquery_md5'], function (ko, ajaxHelper) {
 
     return function welcomeViewModel(params) {
         var self = this;
-        self.switchComponentTo = params.switchComponentTo || null;
+        //self.switchComponentTo = params.switchComponentTo || null;
         self.name = ko.observable('').extend({ required: '' });
         self.password = ko.observable('').extend({ required: '' });
         self.welcomeText = ko.observable('Please REGISTER or LOGIN');

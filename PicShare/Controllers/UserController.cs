@@ -15,11 +15,11 @@ namespace PicShare.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        public async Task<ActionResult> Details(Guid id)
+        public async Task<ActionResult> Details(string id)
         {
             try
             {
-                var user = await UserManager.FindByIdAsync(id.ToString());
+                var user = await UserManager.FindByNameAsync(id);
                 if (user == null) return HttpNotFound("Could not find a user.");
 
                 return View(user);
