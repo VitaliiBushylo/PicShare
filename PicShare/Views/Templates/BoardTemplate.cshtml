@@ -1,10 +1,9 @@
 ﻿@{
     Layout = null;
 }
-
 <div class="row text-center">
     <div class="col-md-2 col-md-offset-5">
-       <h3 data-bind="text: userName" />
+        <h3 data-bind="text: userName" />
     </div>
 </div>
 
@@ -12,6 +11,10 @@
     <button class="col-md-2 col-md-offset-1 pull-right btn btn-info" data-bind="click: addNewPicture">Add new picture</button>
     <button class="col-md-2 pull-right btn btn-info" data-bind="click: goToUserDetail">Visit your own page</button>
 </div>
+
+<!-- ko if: isUploadFormVisible -->
+<file-uploader params="{isUploadFormVisible: isUploadFormVisible}"></file-uploader>
+<!-- /ko -->
 
 <div class="row">
     board

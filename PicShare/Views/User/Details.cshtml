@@ -4,15 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*@section Scripts{
-    <script type="text/javascript" src="~/Scripts/ViewModels/boardViewModel.js"></script>
-    <script type="text/javascript" src="~/Scripts/userStartup.js"></script>
-}*@
-
-@*<div class="container"
-     data-bind="component: {name: currentComponent, params: {switchComponentTo: switchComponentTo}}"
-     id="@(Model.Id)" />*@
-
 <div class="container">
     <user-board params="{ userName: '@(Model.UserName)' }"/>
 </div>

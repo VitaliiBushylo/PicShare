@@ -5,9 +5,10 @@
         self.ajaxHelper = new ajaxHelper();
         self.userName = params.userName;
         self.pictures = ko.observableArray([]);
+        self.isUploadFormVisible = ko.observable(false);
 
         self.addNewPicture = function () {
-
+            self.isUploadFormVisible(true);
         };
 
         self.goToUserDetail = function () {

@@ -1,14 +1,26 @@
 ﻿require.config({
     paths: {
+        //aliases
         vm: 'ViewModels',
         helpers: 'Helpers',
         components: 'Components',
         models: 'Models',
+        blueimp: '../Backload/Client/blueimp',
 
+        //modules
         jquery: 'jquery-1.9.1.min',
         bootstrap: 'bootstrap.min',
         jquery_md5: 'jquery.md5',
         knockout: 'knockout-3.4.2',
+
+        jqueryFileUpload: '../Backload/Client/blueimp/fileupload/js/jquery.fileupload',
+        'jquery.ui.widget': '../Backload/Client/blueimp/fileupload/js/vendor/jquery.ui.widget',
+        //jqueryFileUploaderUi: 'jQuery.FileUpload/jquery.fileupload-ui',
+        //jqueryFileUploaderIframe: 'jQuery.FileUpload/jquery.iframe-transport',
+        //jqueryFileUploaderAudio: 'jQuery.FileUpload/jquery.fileupload-audio',
+        //jqueryFileUploaderImg: 'jQuery.FileUpload/jquery.fileupload-image',
+        //jqueryFileUploaderVideo: 'jQuery.FileUpload/jquery.fileupload-video',
+        //jqueryFileUploaderValidate: 'jQuery.FileUpload/jquery.fileupload-validate',
 
         welcome_startup: 'welcomeStartup',
         user_startup: 'userStartup',
@@ -16,7 +28,9 @@
         templates: '../Templates'
     },
     shim: {
-        'bootstrap': { deps: ['jquery'] }
+        'bootstrap': { deps: ['jquery'] },
+        'jqueryFileUpload': { deps: ['jquery.ui.widget'] }
+        //'jqueryFileUploaderUi': { deps: ['jqueryFileUploaderAudio', 'jqueryFileUploaderImg', 'jqueryFileUploaderVideo', 'jqueryFileUploaderValidate'] }
     }
 });
 
@@ -46,6 +60,7 @@ require(['knockout', 'bootstrap'], function (ko) {
 
     ko.components.register('welcome', { require: 'components/welcome' });
     ko.components.register('user-board', { require: 'components/userBoard' });
+    ko.components.register('file-uploader', { require: 'components/fileUploader' });
 
     ko.applyBindings();
 });
