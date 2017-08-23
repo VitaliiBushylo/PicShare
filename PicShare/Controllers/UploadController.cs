@@ -49,9 +49,11 @@ namespace PicShare.Controllers
         {
             if (file.ContentLength > 0)
             {
-                string fullPathWithFileName = "/content/Boards/" + file.FileName;
+                string fullPathWithFileName = HttpContext.Current.Server.MapPath($"/content/Boards/{HttpContext.Current.User.Identity.Name}/{file.FileName}");
 
-                using (var fs = new FileStream(HttpContext.Current.Server.MapPath(fullPathWithFileName), FileMode.Append, FileAccess.Write))
+                VerifyPath(fullPathWithFileName);
+
+                using (var fs = new FileStream(fullPathWithFileName, FileMode.Append, FileAccess.Write))
                 {
                     var buffer = new byte[1024];
 
@@ -67,19 +69,15 @@ namespace PicShare.Controllers
             }
         }
 
-        private IAuthenticationManager AuthManager
+        private void VerifyPath(string fullPathWithFileName)
         {
-            get
+            var folder = Path.GetDirectoryName(fullPathWithFileName);
+
+            if (!Directory.Exists(folder))
             {
-                return HttpContext.Current.GetOwinContext().Authentication;
-            }
+                Directory.CreateDirectory(folder);
+            }            
         }
-        private PicshareUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.Current.GetOwinContext().Get<PicshareUserManager>();
-            }
-        }
+        
     }
 }
