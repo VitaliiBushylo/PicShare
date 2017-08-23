@@ -20,3 +20,8 @@
 .error input{
     border: 2px solid red;
 }
+
+.bar {
+    background: #269abc;
+    height: 100%;
+}

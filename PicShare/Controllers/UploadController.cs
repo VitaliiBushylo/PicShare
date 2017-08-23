@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using PicShare.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,6 +20,11 @@ namespace PicShare.Controllers
         [HttpPost]
         public HttpResponseMessage Upload()
         {
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
+
             // Get a reference to the file that our jQuery sent.  Even with multiple files, they will all be their own request and be the 0 index
             HttpPostedFile file = HttpContext.Current.Request.Files[0];
 
@@ -39,20 +47,39 @@ namespace PicShare.Controllers
 
         private void SaveFile(HttpPostedFile file)
         {
-            //if (file.ContentLength > 0)
-            //{
-            //    string fileName = "";
-            //    if (Request.Content.Browser.Browser == "IE")
-            //    {
-            //        fileName = Path.GetFileName(hpf.FileName);
-            //    }
-            //    else
-            //    {
-            //        fileName = file.FileName;
-            //    }
-            //    string fullPathWithFileName = "/content/Boards/" + fileName;
-            //    file.SaveAs(Server.MapPath(fullPathWithFileName));
-            //}
+            if (file.ContentLength > 0)
+            {
+                string fullPathWithFileName = "/content/Boards/" + file.FileName;
+
+                using (var fs = new FileStream(HttpContext.Current.Server.MapPath(fullPathWithFileName), FileMode.Append, FileAccess.Write))
+                {
+                    var buffer = new byte[1024];
+
+                    var l = file.InputStream.Read(buffer, 0, 1024);
+                    while (l > 0)
+                    {
+                        fs.Write(buffer, 0, l);
+                        l = file.InputStream.Read(buffer, 0, 1024);
+                    }
+                    fs.Flush();
+                    fs.Close();
+                }
+            }
+        }
+
+        private IAuthenticationManager AuthManager
+        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().Authentication;
+            }
+        }
+        private PicshareUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().Get<PicshareUserManager>();
+            }
         }
     }
 }

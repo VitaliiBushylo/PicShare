@@ -23,7 +23,7 @@
                     },
                     done: function (e, data) {
                         data.context.text(data.files[0].name + '... Completed');
-                        $('</div><div class="progress"><div class="bar" style="width:100%"></div></div>').appendTo(data.context);
+                        $('</div><div class="progress"><div class="bar" style="color: blue; width:100%"></div></div>').appendTo(data.context);
                         self.isUploadFormVisible(false);
                     },
                     progressall: function (e, data) {
