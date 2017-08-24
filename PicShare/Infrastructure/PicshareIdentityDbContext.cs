@@ -3,6 +3,7 @@ using PicShare.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 
@@ -22,8 +23,8 @@ namespace PicShare.Infrastructure
             return new PicshareIdentityDbContext();
         }
     }
-
-    public class IdentityDbInit : DropCreateDatabaseIfModelChanges<PicshareIdentityDbContext>
+        
+    public class IdentityDbInit : DropCreateDatabaseIfModelChanges<PicshareIdentityDbContext>    
     {
         protected override void Seed(PicshareIdentityDbContext context)
         {
@@ -41,7 +42,7 @@ namespace PicShare.Infrastructure
 
             if (!await roleMgr.RoleExistsAsync(roleName))
             {
-               await roleMgr.CreateAsync(new PicshareRole(roleName));
+                await roleMgr.CreateAsync(new PicshareRole(roleName));
             }
 
             PicshareUser user = await userMgr.FindByNameAsync(userName);

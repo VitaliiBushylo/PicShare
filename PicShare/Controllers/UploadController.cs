@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PicShare.Infrastructure;
+using PicShare.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -20,29 +22,64 @@ namespace PicShare.Controllers
         [HttpPost]
         public HttpResponseMessage Upload()
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            try
             {
-                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    return Request.CreateResponse(HttpStatusCode.Unauthorized);
+                }
+
+                // Get a reference to the file that our jQuery sent.  Even with multiple files, they will all be their own request and be the 0 index
+                HttpPostedFile file = HttpContext.Current.Request.Files[0];
+
+                SaveFile(file);
+
+                // Now we need to wire up a response so that the calling script understands what happened
+                HttpContext.Current.Response.ContentType = "text/plain";
+                var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                var result = new { imgUrl = CreateUrl(file.FileName), title = file.FileName };
+
+                HttpContext.Current.Response.Write(serializer.Serialize(result));
+                HttpContext.Current.Response.StatusCode = 200;
+
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ResponseModel { HasError = true, ErrorMessage = ex.Message });
+            }
+        }
 
-            // Get a reference to the file that our jQuery sent.  Even with multiple files, they will all be their own request and be the 0 index
-            HttpPostedFile file = HttpContext.Current.Request.Files[0];
+        [HttpPut]
+        public async Task<HttpResponseMessage> SaveUploadedFile(Picture picture)
+        {
+            try
+            {
+                if (!HttpContext.Current.User.Identity.IsAuthenticated) return Request.CreateResponse(HttpStatusCode.Unauthorized);
 
-            // do something with the file in this space 
-            // {....}
-            // end of file doing
-            SaveFile(file);
+                if (picture == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
-            // Now we need to wire up a response so that the calling script understands what happened
-            HttpContext.Current.Response.ContentType = "text/plain";
-            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var result = new { name = file.FileName };
+                await Repository.SavePicture(picture);
 
-            HttpContext.Current.Response.Write(serializer.Serialize(result));
-            HttpContext.Current.Response.StatusCode = 200;
+                return Request.CreateResponse(HttpStatusCode.OK, picture);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new ResponseModel { HasError = true, ErrorMessage = ex.Message });
+            }
+        }
 
-            // For compatibility with IE's "done" event we need to return a result as well as setting the context.response
-            return new HttpResponseMessage(HttpStatusCode.OK);
+        private string CreateUrl(string fileName)
+        {
+            var uriBuilder = new UriBuilder
+            {
+                Scheme = HttpContext.Current.Request.Url.Scheme,
+                Host = HttpContext.Current.Request.Url.Host,
+                Port = HttpContext.Current.Request.Url.Port,
+                Path = $"/content/Boards/{HttpContext.Current.User.Identity.Name}/{fileName}"
+            };
+
+            return uriBuilder.ToString();
         }
 
         private void SaveFile(HttpPostedFile file)

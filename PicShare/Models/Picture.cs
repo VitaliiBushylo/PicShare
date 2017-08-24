@@ -14,8 +14,10 @@ namespace PicShare.Models
 
         public string Title { get; set; }
 
-        [Column(TypeName = "image")]
-        public byte[] Image { get; set; }
+        //[Column(TypeName = "image")]
+        //public byte[] Image { get; set; }
+
+        public string Url { get; set; }
 
         public DateTime CreatedOn { get; set; }
     }

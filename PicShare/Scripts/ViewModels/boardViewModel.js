@@ -4,8 +4,14 @@
         //self.switchComponentTo = params.switchComponentTo || null;
         self.ajaxHelper = new ajaxHelper();
         self.userName = params.userName;
+        self.userId = params.userId;
         self.pictures = ko.observableArray([]);
         self.isUploadFormVisible = ko.observable(false);
+
+        self.imgUploaded = function (pictureFromSrvr) {
+            self.isUploadFormVisible(false);
+            self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url));            
+        };
 
         self.addNewPicture = function () {
             self.isUploadFormVisible(true);
@@ -17,10 +23,10 @@
 
         self.updatePictures = function (pictures) {
             ko.utils.arrayForEach(pictures, function (pictureFromSrvr) {
-                self.pictures.push(new pictureModel(boardData.Id, boardData.Title));
+                self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url));
             });
 
-            if (self.pictures().length === 0) { self.pictures.push(new pictureModel()); };
+            //if (self.pictures().length === 0) { self.pictures.push(new pictureModel()); };
         };
 
         //http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html

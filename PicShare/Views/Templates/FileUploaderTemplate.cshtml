@@ -8,20 +8,24 @@
         <div class="span7">
             <div class="well">
                 <i class="icon-plus"></i><span>&nbsp;&nbsp;Add files...</span>
-                <input type="file" id="fileupload" name="fileupload" accept="image/*" multiple="multiple">
+                <input type="file" id="fileupload" name="fileupload" accept="image/*" multiple="multiple" />
                 <button id="btnUploadAll" class="btn btn-success pull-right" type="button">
                     Upload All
                 </button>
                 <div class="clearfix">
                 </div>
                 <div class="progress">
-                    <div class="bar" id="overallbar" style="width: 0%">
+                    <div class="bar" id="overallbar" data-bind="style: {width: progressComputed }">
                     </div>
                 </div>
             </div>
         </div>
         <div class="span7">
-            <div class="well hide" id="filelistholder">
+            <div class="well" id="filelistholder" data-bind="css: {hide: !self.showFileList()}">
+                <input type="text" data-bind="textInput: title" />
+                <div class="progress">
+                    <div class="bar" data-bind="style: {width: progressComputed }"></div>
+                </div>
             </div>
         </div>
         <div class="span7">
