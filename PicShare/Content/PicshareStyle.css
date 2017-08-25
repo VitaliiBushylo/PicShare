@@ -25,3 +25,12 @@
     background: #269abc;
     height: 100%;
 }
+
+.board-control-btn {
+    margin-right: 7px;
+}
+
+.posted-img {
+    border: solid #269abc 1px;
+    padding: 4px;
+}

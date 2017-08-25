@@ -10,7 +10,7 @@
 
         self.imgUploaded = function (pictureFromSrvr) {
             self.isUploadFormVisible(false);
-            self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url));            
+            self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url, pictureFromSrvr.UserId));
         };
 
         self.addNewPicture = function () {
@@ -23,18 +23,18 @@
 
         self.updatePictures = function (pictures) {
             ko.utils.arrayForEach(pictures, function (pictureFromSrvr) {
-                self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url));
+                self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url, pictureFromSrvr.UserId));
             });
 
             //if (self.pictures().length === 0) { self.pictures.push(new pictureModel()); };
         };
 
         //http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
-        self.updateBoardState = function (boardData) {
-            if (!boardData) return;
+        //self.updateBoardState = function (boardData) {
+        //    if (!boardData) return;
 
-            self.updatePictures(boardData.Pictures);
-        };
+        //    self.updatePictures(boardData.Pictures);
+        //};
 
         self.handleError = function (error) {
             alert(error.responseText);
@@ -42,7 +42,7 @@
 
         self.retrieveUserBoard = function () {
             var id = self.userName;
-            self.ajaxHelper.sendAjaxRequest('GET', self.updateBoardState, self.handleError, null, 'board', self.userName);
+            self.ajaxHelper.sendAjaxRequest('GET', self.updatePictures, self.handleError, null, 'board', self.userName);
         };
     }
 });

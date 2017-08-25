@@ -18,6 +18,14 @@ namespace PicShare.Models
             }
         }
 
+        public static IList<Picture> GetUserPictures(Guid userId)
+        {
+            using (var db = new PicshareDbContext())
+            {
+                return db.Pictures.Where(p => p.UserId == userId).ToList();
+            }
+        } 
+
         public static async Task<bool> SavePicture(Picture picture)
         {
             using (var db = new PicshareDbContext())
@@ -35,5 +43,6 @@ namespace PicShare.Models
 
             return true;
         }
+        
     }
 }

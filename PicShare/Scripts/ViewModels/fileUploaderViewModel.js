@@ -28,20 +28,12 @@
                         self.showFileList(true);
                         self.title(self.file().name);
 
-                        //$('#filelistholder').removeClass('hide');
-                        //data.context = $('<div />').text(data.files[0].name).appendTo('#filelistholder');
-                        //data.context = $('<div />').text(data.files[0].name).appendTo('#filelistholder');
-                        //$('</div><div class="progress"><div class="bar" style="width:0%"></div></div>').appendTo(data.context);
                         $('#btnUploadAll').click(function () {
                             data.submit();
                         });
                     },
                     done: function (e, data) {
-                        //data.context.text(data.files[0].name + '... Completed');
-                        //$('</div><div class="progress"><div class="bar" style="width:100%"></div></div>').appendTo(data.context);
-                        //self.imgUploaded(data.result.imgUrl);
-
-                        var data = {
+                        var pictureData = {
                             Id: '',
                             UserId: self.userId,
                             Title: self.title(),
@@ -52,17 +44,15 @@
                         self.ajaxHelper.sendAjaxRequest('PUT',
                             self.imgUploaded,
                             function (e) { alert(e.responseText); },
-                            data, 'upload');
+                            pictureData, 'upload');
                     },
                     progressall: function (e, data) {
                         var progress = parseInt(data.loaded / data.total * 100, 10);
                         self.progress(progress);
-                        //$('#overallbar').css('width', progress + '%');
                     },
                     progress: function (e, data) {
                         var progress = parseInt(data.loaded / data.total * 100, 10);
                         self.progress(progress);
-                        //data.context.find('.bar').css('width', progress + '%');
                     }
                 });
             });

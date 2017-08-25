@@ -24,9 +24,10 @@ namespace PicShare.Controllers
                 var user = await UserManager.FindByNameAsync(id);
                 if (user == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Could not find a user.");
 
-                var userBoard = Repository.GetUserBoard(Guid.Parse(user.Id));
+                //var userBoard = Repository.GetUserBoard(Guid.Parse(user.Id));
+                var userPictures = Repository.GetUserPictures(Guid.Parse(user.Id));
 
-                return Request.CreateResponse(userBoard);
+                return Request.CreateResponse(userPictures);
             }
             catch (Exception ex)
             {

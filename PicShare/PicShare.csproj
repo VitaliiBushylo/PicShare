@@ -296,6 +296,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Components\fileUploader.js" />
+    <Content Include="Scripts\Components\Loading.js" />
     <Content Include="Scripts\Components\userBoard.js" />
     <Content Include="Scripts\Components\welcome.js" />
     <Content Include="Scripts\Helpers\ajaxHelper.js" />
@@ -368,6 +369,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Templates\BoardTemplate.cshtml" />
     <Content Include="Views\Templates\FileUploaderTemplate.cshtml" />
+    <Content Include="Views\Templates\Loading.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

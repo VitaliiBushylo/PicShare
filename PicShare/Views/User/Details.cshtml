@@ -4,6 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/userStartup.js"></script>
+    <script>
+        require(['/Scripts/userStartup.js']);
+    </script>
+    
+}
+
 <div class="container">
-    <user-board params="{ userName: '@(Model.UserName)', userId: '@(Model.Id)' }"/>
+
+    <loading data-bind="visible: isVisible"></loading>
+
+    <user-board params="{ userName: '@(Model.UserName)', userId: '@(Model.Id)' }" />
 </div>
