@@ -4,18 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Scripts
-{
-    <script type="text/javascript" src="~/Scripts/userStartup.js"></script>
-    <script>
-        require(['/Scripts/userStartup.js']);
-    </script>
-    
-}
-
 <div class="container">
+    @{ 
+        var loadingId = Guid.NewGuid();
+    }
+    <div class="row" id="@loadingId">
+        <div class="text-center">
+            <span><span class="fa fa-spinner fa-spin"></span>  <b>Loading ...</b></span>
+        </div>
+    </div>
+    
 
-    <loading data-bind="visible: isVisible"></loading>
-
-    <user-board params="{ userName: '@(Model.UserName)', userId: '@(Model.Id)' }" />
+    <user-board params="{ userName: '@(Model.UserName)', userId: '@(Model.Id)', loadingId:'@(loadingId)' }" />
 </div>

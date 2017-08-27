@@ -26,6 +26,20 @@ namespace PicShare.Models
             }
         } 
 
+        public static IList<PicshareUser> SearchUsers(string userName)
+        {
+            using (var db = new PicshareIdentityDbContext())
+            {
+                return db.Users.Where(u => u.UserName.Contains(userName)).ToList();
+
+                //var user = db.Users.FirstOrDefault(u => u.UserName == userName);
+                //if (user != null)
+                //{
+                //    return new List<PicshareUser>(1) { user };
+                //}
+            }
+        }
+
         public static async Task<bool> SavePicture(Picture picture)
         {
             using (var db = new PicshareDbContext())

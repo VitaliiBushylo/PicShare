@@ -1,4 +1,4 @@
-﻿define(['knockout'], function (ko) {
+﻿define([], function () {
     return function pictureModel(id, title, url, userId) {
         self = this;
         self.id = id;

@@ -32,25 +32,9 @@ namespace PicShare.Controllers
             catch (Exception ex)
             {
                 return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
-                //return Json(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
             }
         }
-
-        //// POST api/<controller>
-        //public void Post([FromBody]string value)
-        //{
-        //}
-
-        //// PUT api/<controller>/5
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        //// DELETE api/<controller>/5
-        //public void Delete(int id)
-        //{
-        //}
-
+        
         private IAuthenticationManager AuthManager
         {
             get

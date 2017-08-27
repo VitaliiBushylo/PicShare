@@ -312,13 +312,17 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
+    <Content Include="Scripts\knockout-postbox.js" />
+    <Content Include="Scripts\knockout-postbox.min.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\Models\pictureModel.js" />
+    <Content Include="Scripts\Models\userModel.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\userStartup.js" />
     <Content Include="Scripts\ViewModels\fileUploaderViewModel.js" />
+    <Content Include="Scripts\ViewModels\loadingViewModel.js" />
     <Content Include="Scripts\welcomeStartup.js" />
     <Content Include="Scripts\ViewModels\mainViewModel.js" />
     <Content Include="Scripts\ViewModels\boardViewModel.js" />

@@ -12,6 +12,7 @@
         bootstrap: 'bootstrap.min',
         jquery_md5: 'jquery.md5',
         knockout: 'knockout-3.4.2',
+        koPostbox: 'knockout-postbox',
 
         jqueryFileUpload: '../Backload/Client/blueimp/fileupload/js/jquery.fileupload',
         'jquery.ui.widget': '../Backload/Client/blueimp/fileupload/js/vendor/jquery.ui.widget',
@@ -54,7 +55,7 @@ require(['knockout', 'bootstrap'], function (ko) {
     ko.components.register('welcome', { require: 'components/welcome' });
     ko.components.register('user-board', { require: 'components/userBoard' });
     ko.components.register('file-uploader', { require: 'components/fileUploader' });
-    ko.components.register('loading', { require: 'components/Loading' });
+    //ko.components.register('loading', { require: 'components/loading' });
 
     ko.applyBindings();
 });

@@ -34,3 +34,7 @@
     border: solid #269abc 1px;
     padding: 4px;
 }
+
+.checkbox input[type=checkbox] {
+    margin-left: 0px;
+}

@@ -5,5 +5,14 @@
 }
 
 <div class="container">
-    <welcome/>
+    @{
+        var loadingId = Guid.NewGuid();
+    }
+    <div class="row" id="@loadingId">
+        <div class="text-center">
+            <span><span class="fa fa-spinner fa-spin"></span>  <b>Loading ...</b></span>
+        </div>
+    </div>
+
+    <welcome params="{loadingId:'@(loadingId)'}"></welcome>
 </div>

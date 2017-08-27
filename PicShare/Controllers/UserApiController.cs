@@ -1,35 +1,44 @@
-﻿using System;
+﻿using Microsoft.Owin.Security;
+using Microsoft.AspNet.Identity.Owin;
+using PicShare.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web;
+using System.Threading.Tasks;
+using PicShare.Models;
 
 namespace PicShare.Controllers
 {
     [Authorize]
-    [RoutePrefix("user")]
+    [RoutePrefix("userapi")]
     public class UserApiController : ApiController
     {
-        // GET api/<controller>/5
-        public string Get(string id)
+        [HttpGet]
+        public HttpResponseMessage SearchUsers(string id)
         {
-            return "value";
+            try
+            {
+                var userList = Repository.SearchUsers(id);
+                var responseList = userList.Select(u => new { id = u.Id, name = u.UserName});
+                return Request.CreateResponse(HttpStatusCode.OK, responseList);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
+            }
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        
+        private PicshareUserManager UserManager
         {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().Get<PicshareUserManager>();
+            }
         }
     }
 }

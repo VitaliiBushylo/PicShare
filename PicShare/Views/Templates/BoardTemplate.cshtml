@@ -21,14 +21,58 @@
 <!-- /ko -->
 
 <br />
-<div class="row">
-    <div data-bind="foreach: pictures">
-        <div class="col-md-8 col-md-offset-2">
+<div data-bind="foreach: pictures">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-1">
             <div class="posted-img">
-                <h4 class="h4 text-center" data-bind="text: title" />
+                <h4 class="col-md-10 h4 text-center" data-bind="text: title" />
+                <button class="col-md-2 btn btn-info pull-right" title="Share with ..." data-bind="click: $parent.shareWith">
+                    <span><span class="glyphicon glyphicon-share" /> <b>share</b></span>
+                </button>
                 <img class="img-thumbnail" data-bind="attr: {alt: title, src: url }" />
                 <div>comments</div>
             </div>
         </div>
+
+        <div class="col-md-3 hidden" data-bind="attr: {id: id}">
+            <div class="row">
+                <form data-bind="submit: $parent.searchUser">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="user name" data-bind="textInput: $parent.searchingUserName" />
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-success" title="Search">
+                                <!-- ko if: $parent.isSearching -->
+                                <i class="fa fa-spinner fa-spin"></i>
+                                <!-- /ko -->
+                                <!-- ko ifnot: $parent.isSearching -->
+                                <i class="glyphicon glyphicon-search"></i>
+                                <!-- /ko -->
+                            </button>                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <button class="btn btn-success pull-right" title="Share" 
+                        data-bind="visible: $parent.foundUsers().length > 0, css: {disabled: $parent.selectedUsers().length == 0}, click: $parent.sendShareRequest">
+                    <!-- ko if: $parent.isSharing -->
+                    <i class="fa fa-spinner fa-spin"></i>
+                    <!-- /ko -->
+                    <!-- ko ifnot: $parent.isSharing -->
+                    <i class="glyphicon glyphicon-share-alt"></i>
+                    <!-- /ko -->
+                </button>
+                <form>
+                    <div data-bind="foreach: $parent.foundUsers">
+                        <div class="checkbox">
+                            <input data-bind="checked: isSelected" type="checkbox" />
+                            <label data-bind="text: name"></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
