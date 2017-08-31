@@ -3,6 +3,16 @@
 }
 
 <div class="row">
+    <!-- ko if: currentBoard === boardType.ownPictures -->
+    <button class="col-md-2 btn btn-info pull-left board-control-btn" title="Pictures shared with you" data-bind="click: retreiveSharedPictures">
+        <span class="glyphicon glyphicon-picture"></span><span>  </span><b>Shared with you</b>
+    </button>
+    <!-- /ko -->
+    <!-- ko ifnot: currentBoard === boardType.ownPictures -->
+    <button class="col-md-2 btn btn-info pull-left board-control-btn" title="Your own pictures" data-bind="click: retrieveUserBoard">
+        <span class="glyphicon glyphicon-picture"></span><span>  </span><b>Your own pictures</b>
+    </button>
+    <!-- /ko -->
 
     <button class="col-md-1 btn btn-info pull-right board-control-btn" title="Visit your own page" data-bind="click: goToUserDetail">
         <span class="glyphicon glyphicon-user"></span><span>  </span><b data-bind="text: userName"></b>

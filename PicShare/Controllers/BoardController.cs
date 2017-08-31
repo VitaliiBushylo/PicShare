@@ -18,7 +18,7 @@ namespace PicShare.Controllers
     public class BoardController : ApiController
     {
         [HttpGet]
-        public async Task<HttpResponseMessage> GetUserPictures(string id)
+        public async Task<HttpResponseMessage> GetUserPictures(string id, [FromBody]bool getSharedPictures)
         {
             try
             {

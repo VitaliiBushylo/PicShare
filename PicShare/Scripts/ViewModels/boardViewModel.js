@@ -9,6 +9,12 @@
             self.loadingId = '#' + params.loadingId;
             self.pictures = ko.observableArray([]);
             self.isUploadFormVisible = ko.observable(false);
+            self.boardType = {
+                ownPictures: 'ownPictures',
+                sharedPictures: 'sharedPictures',
+                NaN: 'NaN'
+            };
+            self.currentBoard = ko.observable(self.boardType.NaN);
 
             self.imgUploaded = function (pictureFromSrvr) {
                 self.isUploadFormVisible(false);
@@ -28,7 +34,13 @@
                     self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url, pictureFromSrvr.UserId));
                 });
 
-                $(self.loadingId).remove();
+                self.toggleBoardType();
+                self.toggleLoading();
+            };
+
+            self.toggleLoading = function () { $(self.loadingId).toggleClass('hidden'); };
+            self.toggleBoardType = function () {
+                self.currentBoard(self.currentBoard() === self.boardType.ownPictures ? self.boardType.sharedPictures : self.boardType.ownPictures);
             };
 
 
@@ -38,7 +50,17 @@
             };
 
             self.retrieveUserBoard = function () {
-                self.ajaxHelper.sendAjaxRequest('GET', self.updatePictures, self.handleError, null, 'board', self.userName);
+                self.pictures.removeAll();
+                var data = { getSharedPictures: false };
+                self.ajaxHelper.sendAjaxRequest('GET', self.updatePictures, self.handleError, data, 'board', self.userName);                
+            };
+
+            self.retreiveSharedPictures = function () {
+                self.pictures.removeAll();
+                self.toggleLoading();
+                var data = { getSharedPictures: true };
+                self.ajaxHelper.sendAjaxRequest('GET', self.updatePictures, self.handleError, data, 'board', self.userName);
+                
             };
 
             self.shareFormVisible = ko.observable(false);
@@ -57,7 +79,7 @@
                     self.pictureToShare(null);
                     self.foundUsers.removeAll();
                     self.searchingUserName(null);
-                }              
+                }
             };
 
             self.sharedSuccessfully = function () {
