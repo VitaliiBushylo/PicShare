@@ -34,10 +34,10 @@
 
             self.handleError = function (error) {
                 alert(error.responseText);
+                self.isSharing(false);
             };
 
             self.retrieveUserBoard = function () {
-                var id = self.userName;
                 self.ajaxHelper.sendAjaxRequest('GET', self.updatePictures, self.handleError, null, 'board', self.userName);
             };
 
@@ -61,12 +61,18 @@
             };
 
             self.sharedSuccessfully = function () {
-
+                self.isSharing(false);
             };
             self.isSharing = ko.observable(false);
             self.sendShareRequest = function () {
                 self.isSharing(true);
-                self.ajaxHelper.sendAjaxRequest('POST', self.sharedSuccessfully, self.handleError, );
+                var data = {
+                    OwnerUserId: self.userId,
+                    PictureId: self.pictureToShare().id,
+                    PictureUrl: self.pictureToShare().url,
+                    ShareToUsers: self.getSelectedUsersIds(self.selectedUsers())
+                };
+                self.ajaxHelper.sendAjaxRequest('POST', self.sharedSuccessfully, self.handleError, data, 'board', null);
             };
 
             self.updateFaundUsers = function (users) {
@@ -86,6 +92,14 @@
                 }
                 self.isSearching(true);
                 self.ajaxHelper.sendAjaxRequest('GET', self.updateFaundUsers, self.handleError, null, 'userapi', self.searchingUserName());
+            };
+
+            self.getSelectedUsersIds = function (selectedUsers) {
+                var userIds = [];
+                ko.utils.arrayForEach(selectedUsers, function (user) {
+                    userIds.push(user.id);
+                });
+                return userIds;
             };
 
             self.selectedUsers = ko.computed(function () {

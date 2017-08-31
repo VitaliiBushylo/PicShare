@@ -31,7 +31,6 @@ namespace PicShare.Controllers
                 return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
             }
         }
-
         
         private PicshareUserManager UserManager
         {

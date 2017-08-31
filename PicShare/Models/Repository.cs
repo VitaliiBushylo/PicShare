@@ -24,19 +24,13 @@ namespace PicShare.Models
             {
                 return db.Pictures.Where(p => p.UserId == userId).ToList();
             }
-        } 
+        }
 
         public static IList<PicshareUser> SearchUsers(string userName)
         {
             using (var db = new PicshareIdentityDbContext())
             {
                 return db.Users.Where(u => u.UserName.Contains(userName)).ToList();
-
-                //var user = db.Users.FirstOrDefault(u => u.UserName == userName);
-                //if (user != null)
-                //{
-                //    return new List<PicshareUser>(1) { user };
-                //}
             }
         }
 
@@ -57,6 +51,23 @@ namespace PicShare.Models
 
             return true;
         }
-        
+
+        public static async Task SaveShareEntries(IEnumerable<ShareEntry> shareEntries)
+        {
+            using (var db = new PicshareDbContext())
+            {
+                foreach (var shareEntry in shareEntries)
+                {
+                    if (db.ShareEntries.Any(se => se.OwnerUserId == shareEntry.OwnerUserId && se.ToUserId == shareEntry.ToUserId && se.PictureId == shareEntry.PictureId))
+                    {
+                        continue;
+                    }
+
+                    db.ShareEntries.Add(shareEntry);
+                }
+                
+                await db.SaveChangesAsync();
+            }
+        }
     }
 }

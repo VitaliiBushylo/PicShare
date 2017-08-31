@@ -17,14 +17,14 @@ namespace PicShare.Controllers
     [RoutePrefix("board")]
     public class BoardController : ApiController
     {
-        public async Task<HttpResponseMessage> Get(string id)
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetUserPictures(string id)
         {
             try
             {
                 var user = await UserManager.FindByNameAsync(id);
                 if (user == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Could not find a user.");
 
-                //var userBoard = Repository.GetUserBoard(Guid.Parse(user.Id));
                 var userPictures = Repository.GetUserPictures(Guid.Parse(user.Id));
 
                 return Request.CreateResponse(userPictures);
@@ -34,7 +34,28 @@ namespace PicShare.Controllers
                 return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
             }
         }
-        
+
+        [HttpPost]
+        public async Task<HttpResponseMessage> SharePicture(SharingModel sharingModel)
+        {
+            try
+            {
+                if (sharingModel == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest);
+                }
+
+                var shareEntries = sharingModel.ShareToUsers.Select(toUserId => new ShareEntry(sharingModel.OwnerUserId, toUserId, sharingModel.PictureId, sharingModel.PictureUrl));
+                await Repository.SaveShareEntries(shareEntries);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
+            }
+        }
+
         private IAuthenticationManager AuthManager
         {
             get

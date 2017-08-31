@@ -38,3 +38,7 @@
 .checkbox input[type=checkbox] {
     margin-left: 0px;
 }
+
+.found-user-list {
+    width: 85%;
+}

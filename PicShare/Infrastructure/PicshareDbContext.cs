@@ -25,6 +25,8 @@ namespace PicShare.Infrastructure
         public DbSet<PictureComment> PictureComments { get; set; }
 
         public DbSet<Board> Boards { get; set; }
+
+        public DbSet<ShareEntry> ShareEntries { get; set; }
     }
 
     public class PicshareConfiguration : DbMigrationsConfiguration<PicshareDbContext>
