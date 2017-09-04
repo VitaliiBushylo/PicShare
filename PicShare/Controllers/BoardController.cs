@@ -57,6 +57,20 @@ namespace PicShare.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("{id}/comments")]
+        public HttpResponseMessage GetPictureComments(string id)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
+            }
+        }
+
         private IAuthenticationManager AuthManager
         {
             get

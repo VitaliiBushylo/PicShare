@@ -32,6 +32,7 @@
             self.updatePictures = function (pictures) {
                 ko.utils.arrayForEach(pictures, function (pictureFromSrvr) {
                     self.pictures.push(new pictureModel(pictureFromSrvr.Id, pictureFromSrvr.Title, pictureFromSrvr.Url, pictureFromSrvr.UserId));
+                    self.retrievePictureComments(pictureFromSrvr.Id);
                 });
 
                 self.toggleBoardType();
@@ -50,6 +51,13 @@
             self.handleError = function (error) {
                 alert(error.responseText);
                 self.isSharing(false);
+            };
+
+            self.updatePictureComments = function (response) {
+
+            };
+            self.retrievePictureComments = function (pictureId) {
+                self.ajaxHelper.sendAjaxRequest('GET', self.updatePictureComments, self.handleError, null, 'board', pictureId + '/comments');
             };
 
             self.retrieveUserBoard = function () {
