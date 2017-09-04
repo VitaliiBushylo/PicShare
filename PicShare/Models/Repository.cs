@@ -26,6 +26,15 @@ namespace PicShare.Models
             }
         }
 
+        public static IList<Picture> GetSharedPictures(Guid sharedForUserId)
+        {
+            using (var db = new PicshareDbContext())
+            {
+                var pictureIds = db.ShareEntries.Where(e => e.ToUserId == sharedForUserId).Select(s => s.PictureId);
+                return db.Pictures.Where(p => pictureIds.Contains(p.Id)).ToList();
+            }
+        }
+
         public static IList<PicshareUser> SearchUsers(string userName)
         {
             using (var db = new PicshareIdentityDbContext())
@@ -51,7 +60,7 @@ namespace PicShare.Models
 
             return true;
         }
-
+        
         public static async Task SaveShareEntries(IEnumerable<ShareEntry> shareEntries)
         {
             using (var db = new PicshareDbContext())

@@ -18,14 +18,15 @@ namespace PicShare.Controllers
     public class BoardController : ApiController
     {
         [HttpGet]
-        public async Task<HttpResponseMessage> GetUserPictures(string id, [FromBody]bool getSharedPictures)
+        public async Task<HttpResponseMessage> GetUserPictures(string id, bool getSharedPictures)
         {
             try
             {
                 var user = await UserManager.FindByNameAsync(id);
                 if (user == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Could not find a user.");
 
-                var userPictures = Repository.GetUserPictures(Guid.Parse(user.Id));
+                var userId = Guid.Parse(user.Id);
+                var userPictures = getSharedPictures ? Repository.GetSharedPictures(userId) : Repository.GetUserPictures(userId);
 
                 return Request.CreateResponse(userPictures);
             }

@@ -38,9 +38,12 @@
                 self.toggleLoading();
             };
 
-            self.toggleLoading = function () { $(self.loadingId).toggleClass('hidden'); };
+            self.toggleLoading = function () {
+                if (self.currentBoard() === self.boardType.NaN) return;
+                 $(self.loadingId).toggleClass('hidden');
+            };
             self.toggleBoardType = function () {
-                self.currentBoard(self.currentBoard() === self.boardType.ownPictures ? self.boardType.sharedPictures : self.boardType.ownPictures);
+                self.currentBoard(self.currentBoard() === self.boardType.NaN || self.currentBoard() === self.boardType.sharedPictures ? self.boardType.ownPictures : self.boardType.sharedPictures);
             };
 
 
@@ -51,6 +54,7 @@
 
             self.retrieveUserBoard = function () {
                 self.pictures.removeAll();
+                self.toggleLoading();
                 var data = { getSharedPictures: false };
                 self.ajaxHelper.sendAjaxRequest('GET', self.updatePictures, self.handleError, data, 'board', self.userName);                
             };

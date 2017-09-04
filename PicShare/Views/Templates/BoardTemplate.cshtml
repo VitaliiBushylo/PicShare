@@ -3,12 +3,12 @@
 }
 
 <div class="row">
-    <!-- ko if: currentBoard === boardType.ownPictures -->
+    <!-- ko if: (currentBoard() === boardType.ownPictures || currentBoard() === boardType.NaN) -->
     <button class="col-md-2 btn btn-info pull-left board-control-btn" title="Pictures shared with you" data-bind="click: retreiveSharedPictures">
         <span class="glyphicon glyphicon-picture"></span><span>  </span><b>Shared with you</b>
     </button>
     <!-- /ko -->
-    <!-- ko ifnot: currentBoard === boardType.ownPictures -->
+    <!-- ko if: (currentBoard() === boardType.sharedPictures) -->
     <button class="col-md-2 btn btn-info pull-left board-control-btn" title="Your own pictures" data-bind="click: retrieveUserBoard">
         <span class="glyphicon glyphicon-picture"></span><span>  </span><b>Your own pictures</b>
     </button>
