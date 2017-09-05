@@ -57,9 +57,10 @@ namespace PicShare.Controllers
             }
         }
 
+        
+        [Route("{pictureId:guid}/comments")]
         [HttpGet]
-        [Route("{id:string}/comments")]
-        public HttpResponseMessage GetPictureComments(string id)
+        public HttpResponseMessage GetPictureComments(Guid pictureId)
         {
             try
             {

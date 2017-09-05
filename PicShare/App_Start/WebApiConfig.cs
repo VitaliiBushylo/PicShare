@@ -13,16 +13,11 @@ namespace PicShare
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
-            //config.Routes.MapHttpRoute(
-            //    name: "CommentsApi",
-            //    routeTemplate: "api/{controller}/{id}/{comments}"
-            //);
-
+            
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { id = RouteParameter.Optional, controller = RouteParameter.Optional }
             );
         }
     }
