@@ -14,7 +14,7 @@ using System.Web.Http;
 namespace PicShare.Controllers
 {
     [Authorize]
-    [RoutePrefix("board")]
+    [RoutePrefix("api/board")]
     public class BoardController : ApiController
     {
         [HttpGet]
