@@ -53,7 +53,9 @@
                 self.isSharing(false);
             };
 
-            self.updatePictureComments = function (response) {
+            self.updatePictureComments = function (commetsFromSrvr) {
+                if (!commetsFromSrvr) return;
+
 
             };
             self.retrievePictureComments = function (pictureId) {

@@ -42,3 +42,7 @@
 .found-user-list {
     width: 85%;
 }
+
+textarea {
+   resize: none;
+}

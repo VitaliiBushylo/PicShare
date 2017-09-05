@@ -43,6 +43,24 @@
                 <!-- /ko -->
                 <img class="img-thumbnail" data-bind="attr: {alt: title, src: url }" />
                 <div>comments</div>
+                <!-- ko if: ($parent.currentBoard() === $parent.boardType.sharedPictures) -->
+                <form data-bind="submit: $data.saveComment">
+                    <div class="form-group">
+                        <label>Comment this picture:</label>
+                        @*<div class="input-group">*@
+                            <textarea rows="2" class="form-control" data-bind="textInput: $data.newCommentText" resize="none"></textarea>
+                            <button type="submit" class="btn btn-success" title="Save comment">
+                                <!-- ko if: $data.isSavingComment -->
+                                <i class="fa fa-spinner fa-spin"></i>
+                                <!-- /ko -->
+                                <!-- ko ifnot: $data.isSavingComment -->
+                                <i class="glyphicon glyphicon-send"></i>
+                                <!-- /ko -->
+                            </button>
+                        @*</div>*@
+                    </div>
+                </form>
+                <!-- /ko -->
             </div>
         </div>
         <!-- ko if: ($parent.currentBoard() === $parent.boardType.ownPictures || $parent.currentBoard() === $parent.boardType.NaN) -->

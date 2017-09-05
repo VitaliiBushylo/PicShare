@@ -64,7 +64,24 @@ namespace PicShare.Controllers
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK);
+                var comments = Repository.GetPictureComments(pictureId);
+                return Request.CreateResponse(HttpStatusCode.OK, comments);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
+            }
+        }
+
+        [Route("savecomment")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> SavePictureComment(PictureComment pictureComment)
+        {
+            try
+            {
+                if (pictureComment == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
+                await Repository.SavePictureComment(pictureComment);
+                return Request.CreateResponse(HttpStatusCode.OK, pictureComment);
             }
             catch (Exception ex)
             {

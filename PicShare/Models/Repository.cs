@@ -78,5 +78,26 @@ namespace PicShare.Models
                 await db.SaveChangesAsync();
             }
         }
+
+        public static async Task SavePictureComment(PictureComment pictureComment)
+        {
+            using (var db = new PicshareDbContext())
+            {
+                if (pictureComment.Id == Guid.Empty) pictureComment.Id = Guid.NewGuid();
+
+                if (pictureComment.CreatedOn == DateTime.MinValue) pictureComment.CreatedOn = DateTime.Now;
+
+                db.PictureComments.Add(pictureComment);
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public static IList<PictureComment> GetPictureComments(Guid pictureId)
+        {
+            using (var db = new PicshareDbContext())
+            {
+                return db.PictureComments.Where(c => c.PictureId == pictureId).ToList();
+            }
+        } 
     }
 }
