@@ -11,6 +11,8 @@ namespace PicShare.Models
 
         public Guid UserId { get; set; }
 
+        public string UserName { get; set; }
+
         public Guid PictureId { get; set; }
 
         public string CommentText { get; set; }

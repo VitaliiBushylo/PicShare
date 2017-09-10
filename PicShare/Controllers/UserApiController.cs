@@ -14,7 +14,7 @@ using PicShare.Models;
 namespace PicShare.Controllers
 {
     [Authorize]
-    [RoutePrefix("userapi")]
+    [RoutePrefix("api/userapi")]
     public class UserApiController : ApiController
     {
         [HttpGet]
@@ -31,7 +31,24 @@ namespace PicShare.Controllers
                 return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
             }
         }
-        
+
+        [Route("getuserbyid/{userId}")]
+        [HttpGet]
+        public HttpResponseMessage GetUser(string userId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(userId)) return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+                var user = Repository.GetUserById(userId);
+                return Request.CreateResponse(HttpStatusCode.OK, new { userName = user.UserName });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(new ResponseModel { HasError = true, ErrorMessage = ex.Message });
+            }
+        }
+
         private PicshareUserManager UserManager
         {
             get

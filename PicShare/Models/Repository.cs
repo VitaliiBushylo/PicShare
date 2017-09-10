@@ -35,6 +35,14 @@ namespace PicShare.Models
             }
         }
 
+        public static PicshareUser GetUserById(string userId)
+        {
+            using (var db = new PicshareIdentityDbContext())
+            {
+                return db.Users.FirstOrDefault(u => u.Id == userId);
+            }
+        }
+        
         public static IList<PicshareUser> SearchUsers(string userName)
         {
             using (var db = new PicshareIdentityDbContext())
@@ -60,7 +68,7 @@ namespace PicShare.Models
 
             return true;
         }
-        
+
         public static async Task SaveShareEntries(IEnumerable<ShareEntry> shareEntries)
         {
             using (var db = new PicshareDbContext())
@@ -74,7 +82,7 @@ namespace PicShare.Models
 
                     db.ShareEntries.Add(shareEntry);
                 }
-                
+
                 await db.SaveChangesAsync();
             }
         }
@@ -86,7 +94,7 @@ namespace PicShare.Models
                 if (pictureComment.Id == Guid.Empty) pictureComment.Id = Guid.NewGuid();
 
                 if (pictureComment.CreatedOn == DateTime.MinValue) pictureComment.CreatedOn = DateTime.Now;
-
+                
                 db.PictureComments.Add(pictureComment);
                 await db.SaveChangesAsync();
             }
@@ -96,8 +104,9 @@ namespace PicShare.Models
         {
             using (var db = new PicshareDbContext())
             {
+                var com = db.PictureComments.ToList();
                 return db.PictureComments.Where(c => c.PictureId == pictureId).ToList();
             }
-        } 
+        }
     }
 }

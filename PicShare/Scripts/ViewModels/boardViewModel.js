@@ -53,10 +53,21 @@
                 self.isSharing(false);
             };
 
-            self.updatePictureComments = function (commetsFromSrvr) {
-                if (!commetsFromSrvr) return;
+            self.getPicture = function(pictureId) {
+                return ko.utils.arrayFirst(self.pictures(), function (picture) {
+                    return picture.id === pictureId;
+                });
+            };
+            self.updatePictureComments = function (retrievedCommets) {
+                if (!retrievedCommets) return;
+                var picture = self.getPicture(retrievedCommets.pictureId);
+                //if (picture) picture.updateComments(retrievedCommets.comments);
 
-
+                if (!retrievedCommets.comments) return;
+                picture.comments.removeAll();
+                ko.utils.arrayForEach(retrievedCommets.comments, function (comment) {
+                    picture.comments.push(comment);
+                });
             };
             self.retrievePictureComments = function (pictureId) {
                 self.ajaxHelper.sendAjaxRequest('GET', self.updatePictureComments, self.handleError, null, 'board', pictureId + '/comments');
