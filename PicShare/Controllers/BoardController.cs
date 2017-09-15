@@ -84,7 +84,6 @@ namespace PicShare.Controllers
             try
             {
                 if (pictureComment == null) return Request.CreateResponse(HttpStatusCode.BadRequest);
-                //var commentedByUser = Repository.GetUserById(commentedByUserId.ToString());
                 pictureComment.UserName =  HttpContext.Current.User.Identity.Name;
                 await Repository.SavePictureComment(pictureComment);
                 return Request.CreateResponse(HttpStatusCode.OK, pictureComment);

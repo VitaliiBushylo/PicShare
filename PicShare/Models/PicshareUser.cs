@@ -8,5 +8,6 @@ namespace PicShare.Models
 {
     public class PicshareUser : IdentityUser
     {
+        public bool IsCurrentPageOwner { get; set; }
     }
 }

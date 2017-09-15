@@ -28,7 +28,7 @@ namespace PicShare.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Details", "User", new { id = HttpContext.User.Identity.Name });
+                        return RedirectToAction("Board", "User", new { id = HttpContext.User.Identity.Name });
                     }                    
                 }
             }

@@ -25,7 +25,29 @@ namespace PicShare.Controllers
                     AuthManager.SignOut();
                     return RedirectToAction("Index", "Home");
                 }
-                
+
+                user.IsCurrentPageOwner = user.Id == HttpContext.User.Identity.GetUserId();
+
+
+                return View(user);
+            }
+            catch (Exception ex)
+            {
+                return View("Error", ex);
+            }
+        }
+
+        public async Task<ActionResult> Board(string id)
+        {
+            try
+            {
+                var user = await UserManager.FindByNameAsync(id);
+                if (user == null)
+                {
+                    AuthManager.SignOut();
+                    return RedirectToAction("Index", "Home");
+                }
+
                 return View(user);
             }
             catch (Exception ex)

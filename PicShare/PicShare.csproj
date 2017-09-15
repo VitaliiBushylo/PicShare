@@ -298,6 +298,7 @@
     <Content Include="Scripts\Components\fileUploader.js" />
     <Content Include="Scripts\Components\Loading.js" />
     <Content Include="Scripts\Components\userBoard.js" />
+    <Content Include="Scripts\Components\userDetails.js" />
     <Content Include="Scripts\Components\welcome.js" />
     <Content Include="Scripts\Helpers\ajaxHelper.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -323,6 +324,7 @@
     <Content Include="Scripts\userStartup.js" />
     <Content Include="Scripts\ViewModels\fileUploaderViewModel.js" />
     <Content Include="Scripts\ViewModels\loadingViewModel.js" />
+    <Content Include="Scripts\ViewModels\userDetailsViewModel.js" />
     <Content Include="Scripts\welcomeStartup.js" />
     <Content Include="Scripts\ViewModels\mainViewModel.js" />
     <Content Include="Scripts\ViewModels\boardViewModel.js" />
@@ -376,6 +378,8 @@
     <Content Include="Views\Templates\BoardTemplate.cshtml" />
     <Content Include="Views\Templates\FileUploaderTemplate.cshtml" />
     <Content Include="Views\Templates\Loading.cshtml" />
+    <Content Include="Views\User\Board.cshtml" />
+    <Content Include="Views\Templates\UserDetailsTemplate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

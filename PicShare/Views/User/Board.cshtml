@@ -1,6 +1,6 @@
 ﻿@model PicShare.Models.PicshareUser
 @{
-    ViewBag.Title = $"{Model.UserName} details";
+    ViewBag.Title = $"{Model.UserName} board";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,5 +15,5 @@
     </div>
 
 
-    <user-details params="{loadingId: '@(loadingId)', userName: '@(Model.UserName)', userId: '@(Model.Id)', isUserPageOwner: '@(Model.IsCurrentPageOwner.ToString())' }" />
+    <user-board params="{ userName: '@(Model.UserName)', userId: '@(Model.Id)', loadingId:'@(loadingId)' }" />
 </div>

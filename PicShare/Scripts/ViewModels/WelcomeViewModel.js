@@ -42,7 +42,7 @@
                 }
 
                 var redirectUri = window.location.origin + response.JsonContent;
-                //redirect to a user page
+                //redirect to a user board page
                 window.location.replace(redirectUri);
             },
                 self.handleError, data, 'account');

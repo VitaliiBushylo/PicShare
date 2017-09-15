@@ -4,6 +4,7 @@
         self = this;
         self.imgUploaded = params.imgUploaded;
         self.userId = params.userId;
+        self.isAvatarPicture = params.isAvatarPicture;
 
         self.ajaxHelper = new ajaxHelper();
         self.title = ko.observable('');
@@ -18,7 +19,7 @@
             $(function () {
                 $('#fileupload').fileupload({
                     dataType: "json",
-                    url: "/api/upload",
+                    url: "/api/upload/" + self.isAvatarPicture,
                     limitConcurrentUploads: 1,
                     sequentialUploads: true,
                     progressInterval: 100,

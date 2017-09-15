@@ -22,7 +22,7 @@ namespace PicShare.Models
         {
             using (var db = new PicshareDbContext())
             {
-                return db.Pictures.Where(p => p.UserId == userId).ToList();
+                return db.Pictures.Where(p => p.UserId == userId && p.Title != "avatar").ToList();
             }
         }
 

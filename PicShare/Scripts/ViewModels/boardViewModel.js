@@ -26,7 +26,8 @@
             };
 
             self.goToUserDetail = function () {
-
+                var redirectUri = window.location.origin + '/User/Details/' + self.userName;
+                window.location.replace(redirectUri);
             };
 
             self.updatePictures = function (pictures) {

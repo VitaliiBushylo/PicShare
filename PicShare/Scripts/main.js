@@ -55,7 +55,7 @@ require(['knockout', 'bootstrap'], function (ko) {
     ko.components.register('welcome', { require: 'components/welcome' });
     ko.components.register('user-board', { require: 'components/userBoard' });
     ko.components.register('file-uploader', { require: 'components/fileUploader' });
-    //ko.components.register('loading', { require: 'components/loading' });
+    ko.components.register('user-details', { require: 'components/userDetails' });
 
     ko.applyBindings();
 });
